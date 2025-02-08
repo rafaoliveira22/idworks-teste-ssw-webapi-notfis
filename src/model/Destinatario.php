@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'src/Utils.php';
+    
     class Destinatario{
         public string $cnpj;
         public string $nome;

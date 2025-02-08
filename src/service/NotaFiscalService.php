@@ -1,10 +1,11 @@
 <?php
+    require_once 'src/model/NotaFiscalResponse.php';
+
     class NotaFiscalService{
         private string $url = 'https://ssw.inf.br/api/notfis';
 
         public function enviarNotaFiscal(string $token, NotaFiscalRequest $request): NotaFiscalResponse{
             $data = $this->mapearNotaFiscalRequestParaData($request);
-            $data = removerValoresNulos($data);
 
             $ch = curl_init($this->url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -23,6 +24,7 @@
             return new NotaFiscalResponse(
                 $responseDecode['sucesso'],
                 $responseDecode['mensagem'],
+                $responseDecode['remetente'],
                 $responseDecode['destinatario'],
                 $responseDecode['notaFiscal'],
                 $responseDecode['pedido'],

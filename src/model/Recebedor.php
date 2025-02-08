@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'src/Utils.php';
+    
     class Recebedor{
         public string $cnpj;
         public string $nome;

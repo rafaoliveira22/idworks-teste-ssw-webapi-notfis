@@ -1,4 +1,18 @@
 <?php
+    require_once 'src/service/TokenService.php';
+    require_once 'src/service/NotaFiscalService.php';
+    require_once 'src/model/NotaFiscalRequest.php';
+    require_once 'src/model/Dados.php';
+    require_once 'src/model/Remetente.php';
+    require_once 'src/model/Destinatario.php';
+    require_once 'src/model/Endereco.php';
+    require_once 'src/model/Recebedor.php';
+    require_once 'src/model/NotaFiscal.php';
+    require_once 'src/model/Itens.php';
+    require_once 'src/model/TokenRequest.php';
+    require_once 'src/enum/TipoNotaFiscal.php';
+    require_once 'src/enum/CondicaoFrete.php';
+
     $tokenService = new TokenService();
     $notaFiscalService = new NotaFiscalService();
     $notaFiscalRequest = new NotaFiscalRequest(
@@ -120,8 +134,14 @@
 
     try{
         $token = $tokenService->gerarToken(new TokenRequest('TES', 'user', 'pass', '12345678910124', false));
-        $response = $notaFiscalService->enviarNotaFiscal($token->token, $notaFiscalRequest);
-        echo json_encode($response, JSON_PRETTY_PRINT);
+        if($token->sucess !== true) {
+            echo json_encode($token, JSON_PRETTY_PRINT);
+            return $token;
+        } else{ 
+            $response = $notaFiscalService->enviarNotaFiscal($token->token, $notaFiscalRequest);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            return $response;
+        }
     } catch(Exception $e){
         echo $e->getMessage();
     }

@@ -1,5 +1,4 @@
-<?php
-
+<?php    
     class TokenRequest{
         public string $domain;
         public string $username;

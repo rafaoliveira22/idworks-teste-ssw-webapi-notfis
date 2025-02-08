@@ -1,4 +1,6 @@
-<?php
+<?php    
+    require_once 'src/Utils.php';
+    
     class FreteInformado{
         public ?float $fretePeso;
         public ?float $freteValor;

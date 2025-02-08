@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'src/Utils.php';
+    
     class Itens{
         public ?string $codigo;
         public ?string $descricao;

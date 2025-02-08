@@ -1,4 +1,6 @@
 <?php
+    require_once 'src/model/TokenResponse.php';
+
     class TokenService{
         private string $url = 'https://ssw.inf.br/api/generateToken';
         
@@ -10,7 +12,6 @@
                 'cnpj_edi' => $tokenRequest->cnpj_edi,
                 'force' => $tokenRequest->force,
             ];
-            $data = removerValoresNulos($data);
 
             $ch = curl_init($this->url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -29,16 +30,14 @@
             $responseDecode = json_decode($response, true);
             if($httpCode === 200 || $httpCode === 400 || $httpCode === 401 || $httpCode === 500){
                 return new TokenResponse(
-                    $responseDecode['success'],
+                    $responseDecode['sucess'],
                     $responseDecode['date_time'],
-                    $responseDecode['domain'],
-                    $responseDecode['username'],
+                    $responseDecode['domain'] ?? '',
+                    $responseDecode['username'] ?? '',
                     $responseDecode['token'],
-                    $responseDecode['validity'],
+                    $responseDecode['validity'] ?? '',
                     $responseDecode['message'],
                 );
-            } elseif ($httpCode === 400 || $httpCode === 401 || $httpCode === 500) {
-                throw new Exception("Erro na geração do token: {$responseDecode['message']}");
             } else {
                 throw new Exception("Resposta inesperada: $responseDecode");
             }

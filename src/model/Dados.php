@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'src/Utils.php';
+    
     class Dados{
         public ?string $cnpj;
         public ?Remetente $remetente;

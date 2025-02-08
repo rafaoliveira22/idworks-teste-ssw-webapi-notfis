@@ -1,4 +1,6 @@
 <?php
+    require_once 'src/Utils.php';
+    
     class NotaFiscal
     {
         public ?TipoNotaFiscal $tipoNF = null;
@@ -64,7 +66,7 @@
 
             $this->tipoNF = $tipoNF;
             $this->cnpjPagador = $cnpjPagador;
-            $this->condicaoFrete = $condicaoFrete->value; 
+            $this->condicaoFrete = $condicaoFrete; 
             $this->numero = $numero;
             $this->serie = $serie;
             $this->dataEmissao = $dataEmissao;

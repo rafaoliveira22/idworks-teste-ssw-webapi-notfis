@@ -1,5 +1,5 @@
 <?php
-
+    require_once 'src/Utils.php';
 
     class Endereco{
         public string $rua;

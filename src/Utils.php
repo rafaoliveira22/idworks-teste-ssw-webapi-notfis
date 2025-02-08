@@ -12,15 +12,6 @@
         if($valor === null) throw new InvalidArgumentException("O campo '$nomeCampo' não foi informado e requer preenchimento obrigatório");
     }
 
-    function removerValoresNulos(array $data): array {
-        return array_filter($data, function ($valor) {
-            if (is_array($valor)) {
-                $valor = $this-> removerValoresNulos($valor); // Chamada recursiva para arrays aninhados
-            }
-            return $valor !== null;
-        });
-    }
-
     function verificarAcentuacao(string $valor, string $nomeCampo){
         // Regra 3 do SSW Assinatura do Token WebAPI: Não enviar valores com acentuação.
         if (preg_match('/[áàãâäéèêëíìîïóòõôöúùûüçñÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜÇÑ]/u', $valor)) throw new InvalidArgumentException("O campo '$nomeCampo' contém caracteres acentuados, o que não é permitido.");
