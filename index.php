@@ -119,7 +119,7 @@
     );
 
     try{
-        $token = $tokenService->gerarToken(new TokenRequest('TES', 'user', 'pass', '12345678910124'));
+        $token = $tokenService->gerarToken(new TokenRequest('TES', 'user', 'pass', '12345678910124', false));
         $response = $notaFiscalService->enviarNotaFiscal($token->token, $notaFiscalRequest);
         echo json_encode($response, JSON_PRETTY_PRINT);
     } catch(Exception $e){

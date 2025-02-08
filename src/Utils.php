@@ -8,16 +8,21 @@
         }
     }
 
-    function verificarCampoPreenchimentoObrigatorio(mixed $campo, string $nomeCampo){
-        if($campo === null) throw new InvalidArgumentException("O campo '$nomeCampo' não foi informado e requer preenchimento obrigatório");
+    function verificarCampoPreenchimentoObrigatorio(mixed $valor, string $nomeCampo){
+        if($valor === null) throw new InvalidArgumentException("O campo '$nomeCampo' não foi informado e requer preenchimento obrigatório");
     }
 
     function removerValoresNulos(array $data): array {
-        return array_filter($data, function ($value) {
-            if (is_array($value)) {
-                $value = $this-> removerValoresNulos($value); // Chamada recursiva para arrays aninhados
+        return array_filter($data, function ($valor) {
+            if (is_array($valor)) {
+                $valor = $this-> removerValoresNulos($valor); // Chamada recursiva para arrays aninhados
             }
-            return $value !== null;
+            return $valor !== null;
         });
+    }
+
+    function verificarAcentuacao(string $valor, string $nomeCampo){
+        // Regra 3 do SSW Assinatura do Token WebAPI: Não enviar valores com acentuação.
+        if (preg_match('/[áàãâäéèêëíìîïóòõôöúùûüçñÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜÇÑ]/u', $valor)) throw new InvalidArgumentException("O campo '$nomeCampo' contém caracteres acentuados, o que não é permitido.");
     }
 ?>
